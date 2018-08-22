@@ -7,7 +7,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Post
 from datetime import datetime
 from .email import send_password_reset_email
-
+from .functions import save_picture
 
 # for updating last seen
 @app.before_request
@@ -114,6 +114,9 @@ def user(username):
 def edit_profile():
     form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
+        if form.picture.data:
+            picture_fn = save_picture(form.picture.data)
+            current_user.image = picture_fn
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         db.session.commit()
@@ -187,3 +190,4 @@ def reset_password(token):
         flash('Your password has been reset.')
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form)
+

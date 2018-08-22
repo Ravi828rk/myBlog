@@ -23,6 +23,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(62), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    image = db.Column(db.String(120))
     # relationship with posts
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     about_me = db.Column(db.String(140))

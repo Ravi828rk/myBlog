@@ -3,7 +3,7 @@
 <div class="media">
   <div class="media-left media-middle">
     <a href="{{ url_for('user', username=post.author.username) }}">
-      <img class="media-object" src="{{ post.author.avatar(70) }}" alt="image">
+      <img class="media-object" width="70px" height="70px;" src="{% if post.author.image %}{{ url_for('static', filename='profile_pics/' + post.author.image) }} {% else %}{{ post.author.avatar(70) }}{% endif %}" alt="image">
     </a>
   </div>
   <div class="media-body">

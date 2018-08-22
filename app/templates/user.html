@@ -3,7 +3,8 @@
 {% block content %}
 
     <div class="col-sm-4 tc">
-        <img class="img " src="{{ user.avatar(128) }}" height="200px" width="200px">
+        <img class="img " src="{% if user.image %}{{ url_for('static', filename='profile_pics/'
+        + current_user.image) }} {% else %}{{ user.avatar(128) }}{% endif %}" height="200px" width="200px">
         <div class="media-body">
             <h2 class="account-heading"><span style="font-family: 'Kirang Haerang', cursive;">{{ user.username.upper() }}</span></h2>
             {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
