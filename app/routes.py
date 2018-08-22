@@ -67,8 +67,8 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            return redirect(url_parse('index'))
-        return redirect(url_for(next_page))
+            return redirect(url_for('index'))
+        return redirect(next_page)
     return render_template('login.html', form=form, title='Login')
 
 
@@ -123,7 +123,7 @@ def edit_profile():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title='Edit Profile',
-                           form=form)
+                           form=form, user=current_user)
 
 
 @app.route('/follow/<username>')
